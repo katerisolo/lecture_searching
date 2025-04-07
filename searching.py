@@ -47,14 +47,27 @@ def pattern_search(sequence, pattern):
     return set_of_idxs
 
 
+
+def  binary_search(pole, hledane):
+    leva, prava = 0, len(pole) -1
+    pocet_porovnani = 0
+    while leva <= prava:
+        stred = (leva + prava) // 2
+        pocet_porovnani += 1
+        if pole[stred] == hledane:
+            return stred, pocet_porovnani
+        elif pole[stred] < hledane:
+            leva = stred +1
+        else:
+            prava = stred - 1
+    return None
+
 def main():
-   file_name = "sequential.json"
-   kay_of_sequence = "dna_sequence"
-   search_sequence = "ATA"
-   sequential_data = read_data(file_name, kay_of_sequence)
-   print(sequential_data)
-   found_set = pattern_search(sequential_data, search_sequence)
-   print(found_set)
+    file_name = "sequential.json"
+    kay_of_num = "ordered_numbers"
+    ordered_data = read_data(file_name, kay_of_num)
+    print(ordered_data)
+
 
 if __name__ == '__main__':
     main()
