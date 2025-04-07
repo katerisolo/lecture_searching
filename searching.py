@@ -4,8 +4,6 @@ from operator import index
 
 # get current working directory path
 cwd_path = os.getcwd()
-
-
 def read_data(file_name, field):
     """
     Reads json file and returns sequential data.
@@ -22,12 +20,9 @@ def read_data(file_name, field):
         print(f'Field {field} not exist')
         return None
 
-
-
-
-def linear_search(list_of_numbers, number):
+def linear_search(sequence, number):
     list_of_idxs = []
-    for idx, element in enumerate(list_of_numbers):
+    for idx, element in enumerate(sequence):
         if element == number:
             list_of_idxs.append(idx)
         else:
@@ -35,11 +30,31 @@ def linear_search(list_of_numbers, number):
     distionary_of_found_numbers = {"position":list_of_idxs, "count": len(list_of_idxs)}
     return list_of_idxs
 
+def pattern_search(sequence, pattern):
+    set_of_idxs = set()
+    pattern_length = len(pattern)
+    for idx in range(0, len(sequence) - pattern_length):
+        pattern_similarity = 0
+        for idx_pattern, patten_element in enumerate(pattern):
+            if sequence[idx + idx_pattern] ==patten_element:
+                pattern_similarity = pattern_similarity + 1
+            else:
+                break
+        if pattern_similarity == pattern_length:
+            set_of_idxs.add(idx + pattern_length // 2 - 1)
+        else:
+            pass
+    return set_of_idxs
+
+
 def main():
-    sequential_data = read_data("sequential.json", "unorded.numbers")
-    print(sequential_data)
-    found_number_linear = linear_search(sequential_data, 0)
-    print(found_number_linear)
+   file_name = "sequential.json"
+   kay_of_sequence = "dna_sequence"
+   search_sequence = "ATA"
+   sequential_data = read_data(file_name, kay_of_sequence)
+   print(sequential_data)
+   found_set = pattern_search(sequential_data, search_sequence)
+   print(found_set)
 
 if __name__ == '__main__':
     main()
